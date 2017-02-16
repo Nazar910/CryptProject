@@ -4,7 +4,8 @@ package crypt.algorithm;
 /**
  * Created by nazar on 16/02/17.
  */
-public class MyCaesarImpl extends SymmetricAlgorithm{
+public class MyCaesarImpl extends SymmetricAlgorithm {
+
     public MyCaesarImpl(String alphabet, int key) {
         super(alphabet, key);
     }
@@ -14,24 +15,32 @@ public class MyCaesarImpl extends SymmetricAlgorithm{
     }
 
     public String encrypt(String plainText, int newKey) {
-        if (!checkText(plainText)) throw new RuntimeException("There is now such letter in alphabet");
-        StringBuilder encoded = new StringBuilder();
-        for (char i : plainText.toCharArray()) {
-            if (Character.isLetter(i)) {
-                encoded.append(alphabet.charAt((indexInAlphabet(i) + newKey) % alphabet.length() ));
-            } else {
-                encoded.append(i);
-            }
-        }
-        return encoded.toString();
+        return crypt(plainText, newKey,
+                (c, key) -> (indexInAlphabet(c) + key) % alphabet.length());
     }
 
     public String decrypt(String encryptedText) {
+        //in case we are sure that text encrypted with Caesar Cipher code
+        char c = encryptedText.charAt(0);
         return null;
     }
 
-    public String decrypt(String encryptedText, int newKey) {
-        return null;
+    public String decrypt(String encryptedText, int key) {
+        return crypt(encryptedText, key,
+                (c, _key) -> (indexInAlphabet(c) - _key) % alphabet.length());
+    }
+
+    private String crypt(String text, int newKey, IndexCalculator indexCalculator) {
+        if (!checkText(text)) throw new RuntimeException("There is no such letter in alphabet");
+        StringBuilder result = new StringBuilder();
+        for (char c : text.toCharArray()) {
+            if (Character.isLetter(c)) {
+                result.append(alphabet.charAt(indexCalculator.calculate(c, newKey)));
+            } else {
+                result.append(c);
+            }
+        }
+        return result.toString();
     }
 
     private int indexInAlphabet(char c) {
@@ -50,3 +59,5 @@ public class MyCaesarImpl extends SymmetricAlgorithm{
         return true;
     }
 }
+
+

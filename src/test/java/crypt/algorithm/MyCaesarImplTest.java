@@ -44,6 +44,27 @@ public class MyCaesarImplTest {
     }
 
     @Test
+    public void decryptWhenSendIfmmpReturnHello() {
+        caesar.setAlphabet(englishAlphabet);
+        String decrypted = caesar.decrypt("Ifmmp", 1);
+        assertEquals("Hello", decrypted);
+    }
+
+    @Test
+    public void decryptWhenSendWithKey2() {
+        caesar.setAlphabet(englishAlphabet);
+        String encrypted = caesar.encrypt("Hello", 2);
+        assertEquals("Jgnnq", encrypted);
+    }
+
+    @Test
+    public void decryptWhenSendWithKey27() {
+        caesar.setAlphabet(englishAlphabet);
+        String encrypted = caesar.encrypt("Hello", 27);
+        assertEquals("iFMMP", encrypted);
+    }
+
+    @Test
     public void encryptWithoutLowerCaseWhenSendWithKey27() {
         caesar.setAlphabet(englishWithoutLowerCase);
         String encrypted = caesar.encrypt("HELLO", 27);
