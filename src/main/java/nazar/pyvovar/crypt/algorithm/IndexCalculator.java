@@ -1,4 +1,4 @@
-package crypt.algorithm;
+package nazar.pyvovar.crypt.algorithm;
 
 /**
  * Created by nazar on 16/02/17.
