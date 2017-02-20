@@ -5,6 +5,7 @@ import nazar.pyvovar.crypt.algorithm.NoSuchLetterException;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.regex.Pattern;
 
 /**
  * Created by pyvov on 19.02.2017.
@@ -64,6 +65,10 @@ public class CaesarImpl implements CryptAlgorithm {
         return Arrays.asList(result);
     }
 
+    public boolean isEnglish() {
+        return Pattern.compile("[A-Za-z]*").matcher(alphabet).matches();
+    }
+
     private String crypt(String text, String alphabet, int newKey, IndexCalculator indexCalculator) throws NoSuchLetterException {
         if (!checkText(text, alphabet)) throw new NoSuchLetterException("There is no such letter in alphabet");
         StringBuilder result = new StringBuilder();
@@ -89,8 +94,10 @@ public class CaesarImpl implements CryptAlgorithm {
 
     private boolean checkText(String plaintText, String  alphabet) {
         for (char c : plaintText.toCharArray()) {
-            if (alphabet.indexOf(c) == -1) return false;
+            if (Character.isLetter(c) && alphabet.indexOf(c) == -1) return false;
         }
         return true;
     }
+
+
 }

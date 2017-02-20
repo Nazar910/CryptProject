@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by pyvov on 19.02.2017.
@@ -114,5 +116,22 @@ public class CaesarImplTest {
         LinkedList<String> decrypted = new LinkedList<>(caesar.bruteForce("Hello"));
         assertEquals("Gdkkn", decrypted.getFirst());
         assertEquals("Ifmmp", decrypted.getLast());
+    }
+
+    @Test
+    public void encryptWithSpace() throws NoSuchLetterException {
+        String encrypted = caesar.encrypt("Hello! How are you?", 2);
+        assertEquals("Jgnnq! Jqy ctg Aqw?", encrypted);
+    }
+
+    @Test
+    public void IsEnglishTrue() {
+        assertTrue(caesar.isEnglish());
+    }
+
+    @Test
+    public void IsEnglishFalse() {
+        CaesarImpl caesar1 = new CaesarImpl(ukrainianAlphabet, 1);
+        assertFalse(caesar1.isEnglish());
     }
 }

@@ -16,4 +16,5 @@ public interface CryptAlgorithm {
     String decrypt(String encryptedText, String alphabet, int newKey) throws NoSuchLetterException;
     Collection<String> bruteForce(String encryptedText) throws NoSuchLetterException;
     Collection<String> bruteForce(String encryptedText, String alphabet) throws NoSuchLetterException;
+    boolean isEnglish();
 }

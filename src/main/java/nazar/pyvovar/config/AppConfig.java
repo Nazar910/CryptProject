@@ -2,6 +2,8 @@ package nazar.pyvovar.config;
 
 import nazar.pyvovar.crypt.algorithm.caesar.CaesarImpl;
 import nazar.pyvovar.crypt.algorithm.caesar.CryptAlgorithm;
+import nazar.pyvovar.tools.RequestsSender;
+import nazar.pyvovar.tools.RequestsSenderImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,6 +18,11 @@ public class AppConfig {
         String englishAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         int key = 1;
         return new CaesarImpl(englishAlphabet, key);
+    }
+
+    @Bean
+    public RequestsSender setupRequestSender() {
+        return new RequestsSenderImpl();
     }
 
 }
