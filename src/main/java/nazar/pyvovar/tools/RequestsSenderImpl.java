@@ -26,7 +26,7 @@ import static org.springframework.http.HttpHeaders.USER_AGENT;
 public class RequestsSenderImpl implements RequestsSender {
     @Override
     public String sendGet(String urlString){
-        StringBuffer response = null;
+        StringBuffer response = new StringBuffer("");
         try {
             URL url = new URL(urlString);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -45,7 +45,6 @@ public class RequestsSenderImpl implements RequestsSender {
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
             String output;
-            response = new StringBuffer();
 
             while ((output = in.readLine()) != null) {
                 response.append(output);

@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * Created by pyvov on 19.02.2017.
@@ -66,14 +65,14 @@ public class CaesarServiceImpl implements CryptService {
 
             } else if (!messageDTO.message.equals("")) {
                 LinkedList<String> list = new LinkedList<>(cryptAlgorithm.bruteForce(messageDTO.message));
+
                 outer:
                 if (cryptAlgorithm.isEnglish()) {
                     for (String s : list) {
                         if (!sender.sendGet(
                                 "https://owlbot.info/api/v1/dictionary/" +
                                         s.split(" ")[0].toLowerCase() + "?format=json").equals("[]")) {
-                            result = ResponseEntity.ok()
-                                    .body(s);
+                            result = ResponseEntity.ok().body(new ArrayList<String>(Collections.singletonList(s)));
                             break outer;
                         }
                     }
