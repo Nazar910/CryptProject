@@ -24,8 +24,9 @@ public class CaesarController {
     }
 
     @RequestMapping(path = "/encrypt", method = RequestMethod.POST)
-    public ResponseEntity<String> getEncryptedMessage(@RequestBody MessageDTO messageDTO) {
-        return cryptService.encrypt(messageDTO);
+    public ResponseEntity<byte[]> getEncryptedMessage(@RequestBody MessageDTO messageDTO) {
+        ResponseEntity<byte[]> encrypt = cryptService.encrypt(messageDTO);
+        return encrypt;
     }
 
     @RequestMapping(path = "/decrypt", method = RequestMethod.POST)

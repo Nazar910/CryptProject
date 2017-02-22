@@ -37,7 +37,7 @@ public class CaesarImpl implements CryptAlgorithm {
     @Override
     public String encrypt(String plainText, String alphabet, int newKey) throws NoSuchLetterException {
         return crypt(plainText, alphabet, newKey,
-                (c, key) -> (indexInAlphabet(c, alphabet) + key) % alphabet.length());
+                (c, key) -> (indexInAlphabet(c, alphabet) + key % alphabet.length()) % alphabet.length());
     }
 
     @Override
@@ -48,7 +48,7 @@ public class CaesarImpl implements CryptAlgorithm {
     @Override
     public String decrypt(String encryptedText, String alphabet, int newKey) throws NoSuchLetterException {
         return crypt(encryptedText, alphabet, newKey,
-                (c, key) -> (indexInAlphabet(c, alphabet) - key + alphabet.length()) % alphabet.length());
+                (c, key) -> (indexInAlphabet(c, alphabet) - key % alphabet.length() + alphabet.length()) % alphabet.length());
     }
 
     @Override

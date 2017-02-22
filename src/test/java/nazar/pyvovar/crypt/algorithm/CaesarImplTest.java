@@ -134,4 +134,10 @@ public class CaesarImplTest {
         CaesarImpl caesar1 = new CaesarImpl(ukrainianAlphabet, 1);
         assertFalse(caesar1.isEnglish());
     }
+
+    @Test
+    public void decryptWhenSendWithKey70() throws NoSuchLetterException {
+        String encrypted = caesar.decrypt("ZwDDG", 70);
+        assertEquals("Hello", encrypted);
+    }
 }
